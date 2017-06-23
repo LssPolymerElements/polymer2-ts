@@ -28,7 +28,7 @@ function property<T>(options?: PropertyOptions) {
                     reflectToAttribute: reflect
                 }
 
-        if (!proto.hasOwnProperty('properties')) {
+        if (!proto.constructor.hasOwnProperty('properties')) {
             Object.defineProperty(proto.constructor, 'properties', {
                 get() { return proto.constructor.__polymer_ts_config; }
             });
