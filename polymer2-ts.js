@@ -29,6 +29,20 @@ function property(options) {
         }
     };
 }
+function listen(targetElem, eventName) {
+    return (proto, functionKey) => {
+        if (proto.ready.name === 'addEventListenersOnReady') {
+            proto.ready._listeners.push({ targetElem, functionKey, eventName });
+            return;
+        }
+        const ready = proto.ready;
+        proto.ready = function addEventListenersOnReady(...args) {
+            ready.apply(this, args);
+            proto.ready._listeners.forEach((v) => this.$[targetElem].addEventListener(eventName, (e) => { this[functionKey](e); }));
+        };
+        proto.ready._listeners = [{ targetElem, functionKey, eventName }];
+    };
+}
 function customElement(tagname) {
     return (klass) => {
         klass.is = tagname;

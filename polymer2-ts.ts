@@ -36,6 +36,24 @@ function property<T>(options?: PropertyOptions) {
     }
 }
 
+function listen(targetElem: string, eventName: string) {
+    return (proto: any, functionKey: any) => {
+
+        if (proto.ready.name === 'addEventListenersOnReady') {
+            proto.ready._listeners.push({ targetElem, functionKey, eventName });
+            return;
+        }
+
+        const ready = proto.ready;
+        proto.ready = function addEventListenersOnReady(...args: any[]) {
+            ready.apply(this, args);
+            proto.ready._listeners.forEach((v: any) =>
+                this.$[targetElem].addEventListener(eventName, (e: any) => { this[functionKey](e) }));
+        };
+        proto.ready._listeners = [{ targetElem, functionKey, eventName }];
+    }
+}
+
 function customElement(tagname: string) {
     return (klass: any) => {
         klass.is = tagname;
