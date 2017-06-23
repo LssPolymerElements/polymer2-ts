@@ -10,7 +10,7 @@
     "leavitt software",
     "lss"
   ],
-  "main": "lss-profile-picture.html",
+  "main": "polymer2-ts.html",
   "repository": {
     "type": "git",
     "url": "git@github.com:LssPolymerElements/polymer2-ts.git"
@@ -26,9 +26,8 @@
     ".vscode"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0-rc.3",
+    "polymer": "Polymer/polymer#^2.0.0",
     "reflect-metadata": "^0.1.8"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
