@@ -1,4 +1,4 @@
-/// <reference path="./bower_components/reflect-metadata/Reflect.d.ts" />
+/// <reference path="../reflect-metadata/Reflect.d.ts" />
 function observe(targets) {
     return (proto, propName) => {
         const targetString = typeof targets === 'string' ? targets : targets.join(',');
@@ -22,7 +22,7 @@ function property(options) {
                     notify: notify,
                     reflectToAttribute: reflect
                 };
-        if (!proto.hasOwnProperty('properties')) {
+        if (!proto.constructor.hasOwnProperty('properties')) {
             Object.defineProperty(proto.constructor, 'properties', {
                 get() { return proto.constructor.__polymer_ts_config; }
             });
