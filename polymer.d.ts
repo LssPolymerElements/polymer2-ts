@@ -77,6 +77,9 @@ declare class PolymerPropertyEffects extends HTMLElement {
     set(path: string | (string | number)[], value: any): void;
     push(path: string, ...items: any[]): any;
     pop(path: string): any;
+    shift(path: string): any;
+    unshift(path: string): number;
+    splice(path: string, start: number): Array<any>;
 }
 
 declare class PolymerBatchedEffects extends PolymerPropertyEffects {
