@@ -79,7 +79,7 @@ declare class PolymerPropertyEffects extends HTMLElement {
     pop(path: string): any;
     shift(path: string): any;
     unshift(path: string): number;
-    splice(path: string, start: number): Array<any>;
+    splice(path: string, start: number, removeCount?: number, ...items: Array<any>): Array<any>;
 }
 
 declare class PolymerBatchedEffects extends PolymerPropertyEffects {
