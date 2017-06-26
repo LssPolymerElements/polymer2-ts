@@ -60,12 +60,13 @@ declare class PolymerElement extends PolymerMetaEffects {
     static finalized: boolean;
     static finalize(): void;
     static readonly template: HTMLTemplateElement;
-
+    $: any;
     ready(): void;
     connectedCallback(): void;
     disconnectedCallback(): void;
     attributeChangedCallback(): void;
     updateStyles(properties: string[]): void;
+
 }
 
 declare class PolymerPropertyEffects extends HTMLElement {
