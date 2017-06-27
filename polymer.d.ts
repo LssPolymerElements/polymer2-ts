@@ -60,12 +60,13 @@ declare class PolymerElement extends PolymerMetaEffects {
     static finalized: boolean;
     static finalize(): void;
     static readonly template: HTMLTemplateElement;
-
+    $: any;
     ready(): void;
     connectedCallback(): void;
     disconnectedCallback(): void;
     attributeChangedCallback(): void;
     updateStyles(properties: string[]): void;
+
 }
 
 declare class PolymerPropertyEffects extends HTMLElement {
@@ -77,6 +78,9 @@ declare class PolymerPropertyEffects extends HTMLElement {
     set(path: string | (string | number)[], value: any): void;
     push(path: string, ...items: any[]): any;
     pop(path: string): any;
+    shift(path: string): any;
+    unshift(path: string): number;
+    splice(path: string, start: number, removeCount?: number, ...items: Array<any>): Array<any>;
 }
 
 declare class PolymerBatchedEffects extends PolymerPropertyEffects {
