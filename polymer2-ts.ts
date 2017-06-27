@@ -7,26 +7,35 @@ function observe(targets: string | string[]) {
     }
 }
 
+function computed<T>(name: string) {
+    return (proto: any, propName: string): any => {
+        var funcText = proto[propName].toString();
+        var start = funcText.indexOf("(");
+        var end = funcText.indexOf(")");
+        var propertiesList = funcText.substring(start + 1, end);
+        var signature = proto[propName].name + "(" + propertiesList + ")";
+        console.log(signature);
+        proto.constructor.createComputedProperty(name, signature, true);
+    }
+}
+
 function property<T>(options?: PropertyOptions) {
     return (proto: any, propName: string): any => {
-        const notify = (options && options.notify) as boolean;
-        const reflect = (options && options.reflectToAttribute) as boolean;
-        const readOnly = (options && options.readOnly) as boolean;
-        const computed = (options && options.computed) as string;
+        const notify = (options && options.notify) ? true : false;
+        const reflect = (options && options.reflectToAttribute) ? true : false;
+        const readOnly = (options && options.readOnly) ? true : false;
 
         if (!proto.constructor.__polymer_ts_config) {
             proto.constructor.__polymer_ts_config = (proto.constructor.properties || {});
         }
 
         const type = Reflect.getMetadata("design:type", proto, propName);
+        let propConfig: any = {};
+        if (type) propConfig.type = true;
+        if (notify) propConfig.notify = true;
+        if (reflect) propConfig.reflectToAttribute = true;
 
-        proto.constructor.__polymer_ts_config[propName] =
-            (!notify && !reflect && !readOnly && !computed) ? type :
-                {
-                    type: type,
-                    notify: notify,
-                    reflectToAttribute: reflect
-                }
+        proto.constructor.__polymer_ts_config[propName] = propConfig;
 
         if (!proto.constructor.hasOwnProperty('properties')) {
             Object.defineProperty(proto.constructor, 'properties', {
@@ -36,9 +45,8 @@ function property<T>(options?: PropertyOptions) {
     }
 }
 
-function listen(targetElem: string, eventName: string) {
+function listen(eventName: string, targetElem?: string) {
     return (proto: any, functionKey: any) => {
-
         if (proto.ready.name === 'addEventListenersOnReady') {
             proto.ready._listeners.push({ targetElem, functionKey, eventName });
             return;
@@ -47,8 +55,10 @@ function listen(targetElem: string, eventName: string) {
         const ready = proto.ready;
         proto.ready = function addEventListenersOnReady(...args: any[]) {
             ready.apply(this, args);
-            proto.ready._listeners.forEach((v: any) =>
-                this.$[targetElem].addEventListener(eventName, (e: any) => { this[functionKey](e) }));
+            proto.ready._listeners.forEach((v: any) => {
+                var node = this.$[v.targetElem] || this;
+                node.addEventListener(v.eventName, (e: any) => { this[v.functionKey](e) })
+            });
         };
         proto.ready._listeners = [{ targetElem, functionKey, eventName }];
     }
@@ -65,6 +75,5 @@ interface PropertyOptions {
     notify?: boolean;
     reflectToAttribute?: boolean;
     readOnly?: boolean;
-    computed?: string;
 };
 

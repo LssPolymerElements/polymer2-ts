@@ -5,31 +5,47 @@ function observe(targets) {
         proto._createMethodObserver(`${propName}(${targetString})`, true);
     };
 }
+function computed(name) {
+    return (proto, propName) => {
+        var funcText = proto[propName].toString();
+        var start = funcText.indexOf("(");
+        var end = funcText.indexOf(")");
+        var propertiesList = funcText.substring(start + 1, end);
+        var signature = proto[propName].name + "(" + propertiesList + ")";
+        console.log(signature);
+        proto.constructor.createComputedProperty(name, signature, true);
+    };
+}
 function property(options) {
     return (proto, propName) => {
-        const notify = (options && options.notify);
-        const reflect = (options && options.reflectToAttribute);
-        const readOnly = (options && options.readOnly);
-        const computed = (options && options.computed);
+        const notify = (options && options.notify) ? true : false;
+        const reflect = (options && options.reflectToAttribute) ? true : false;
+        const readOnly = (options && options.readOnly) ? true : false;
         if (!proto.constructor.__polymer_ts_config) {
             proto.constructor.__polymer_ts_config = (proto.constructor.properties || {});
         }
         const type = Reflect.getMetadata("design:type", proto, propName);
-        proto.constructor.__polymer_ts_config[propName] =
-            (!notify && !reflect && !readOnly && !computed) ? type :
-                {
-                    type: type,
-                    notify: notify,
-                    reflectToAttribute: reflect
-                };
+        let propConfig = {};
+        if (type)
+            propConfig.type = true;
+        if (notify)
+            propConfig.notify = true;
+        if (reflect)
+            propConfig.reflectToAttribute = true;
+        proto.constructor.__polymer_ts_config[propName] = propConfig;
         if (!proto.constructor.hasOwnProperty('properties')) {
             Object.defineProperty(proto.constructor, 'properties', {
                 get() { return proto.constructor.__polymer_ts_config; }
             });
         }
+        else {
+            proto.constructor.properties = {
+                get() { return proto.constructor.__polymer_ts_config; }
+            };
+        }
     };
 }
-function listen(targetElem, eventName) {
+function listen(eventName, targetElem) {
     return (proto, functionKey) => {
         if (proto.ready.name === 'addEventListenersOnReady') {
             proto.ready._listeners.push({ targetElem, functionKey, eventName });
@@ -38,7 +54,10 @@ function listen(targetElem, eventName) {
         const ready = proto.ready;
         proto.ready = function addEventListenersOnReady(...args) {
             ready.apply(this, args);
-            proto.ready._listeners.forEach((v) => this.$[targetElem].addEventListener(eventName, (e) => { this[functionKey](e); }));
+            proto.ready._listeners.forEach((v) => {
+                var node = this.$[v.targetElem] || this;
+                node.addEventListener(v.eventName, (e) => { this[v.functionKey](e); });
+            });
         };
         proto.ready._listeners = [{ targetElem, functionKey, eventName }];
     };
