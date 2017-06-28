@@ -81,10 +81,10 @@ the computed property is updated.
 TypeScript:
 class MyElement extends Polymer.Element {
   @property( )
-  numOne: numer = 1;
+  numOne: number = 1;
     
   @property( )
-  numTwo: numer = 2;
+  numTwo: number = 2;
         
   @computed('total')
   getSrc(numOne: number, numTwo: number) : number {
