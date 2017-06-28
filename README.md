@@ -101,3 +101,68 @@ Result:
 <h1>3</h1>
 ```
 
+## Recommended TypeScript Config 
+```json
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "es2015",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "lib": ["es2017", "dom"],
+    "typeRoots": ["types"]
+  },
+  "exclude": [    
+    "node_modules",
+    "bower_components/reflect-metadata/"
+  ]
+}
+```
+
+
+## Example
+my-element.ts
+```typescript
+@customElement("my-element")
+class MyElement extends Polymer.Element {
+
+    @property({ notify: true })
+    personId: number = 44;
+
+    @property()
+    size: number = 60;
+
+    @observe('size')
+    _sizeChanged(size) {
+        console.log("size changed to " + size);
+    }
+    
+    @computed('src')
+    _computePictureSrc(personId: number, size: number) {
+        var baseUrl = this.isDev() ? "https://dev.example.com/" : "https://example.com/";
+        return `${baseUrl}Picture(${personId})/Default.Picture(size=${size})`;
+    }
+}
+```
+my-element.html
+```html
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer2-ts/polymer2-ts.html">
+
+<dom-module id="my-element">
+    <template>
+        <style>
+             :host {
+                display: block;
+            }            
+        </style>
+        <img src="{{src}}" style="height:[[size]]"></img>
+    </template>
+    <script type="text/javascript" src="my-element.js"></script>
+</dom-module>
+
+```
