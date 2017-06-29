@@ -42,7 +42,11 @@ function property(options) {
 function listen(eventName, targetElem) {
     return (proto, functionKey) => {
         addReadyHandler(proto);
-        proto.__listeners ? proto.__listeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+        if (proto.__listeners) {
+            proto.__listeners.push({ targetElem, functionKey, eventName });
+            return;
+        }
+        proto.__listeners = [{ targetElem, functionKey, eventName }];
     };
 }
 function gestureListen(eventName, targetElem) {
@@ -51,7 +55,11 @@ function gestureListen(eventName, targetElem) {
             throw new Error("Polymer.Gestures not detected.  You must extend Polymer.GestureEventListeners(Polymer.Element) when using the gestureListen() decorator");
         }
         addReadyHandler(proto);
-        proto.__gestureListeners ? proto.__gestureListeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+        if (proto.__gestureListeners) {
+            proto.__gestureListeners.push({ targetElem, functionKey, eventName });
+            return;
+        }
+        proto.__gestureListeners = [{ targetElem, functionKey, eventName }];
     };
 }
 function addReadyHandler(proto) {

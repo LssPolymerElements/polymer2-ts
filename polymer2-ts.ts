@@ -46,7 +46,12 @@ function property<T>(options?: PropertyOptions) {
 function listen(eventName: string, targetElem?: string) {
     return (proto: any, functionKey: any) => {
         addReadyHandler(proto);
-        proto.__listeners ? proto.__listeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+        if (proto.__listeners) {
+            proto.__listeners.push({ targetElem, functionKey, eventName })
+            return;
+        }
+
+        proto.__listeners = [{ targetElem, functionKey, eventName }];
     }
 }
 
@@ -57,7 +62,12 @@ function gestureListen(eventName: string, targetElem?: string) {
             throw new Error("Polymer.Gestures not detected.  You must extend Polymer.GestureEventListeners(Polymer.Element) when using the gestureListen() decorator")
         }
         addReadyHandler(proto);
-        proto.__gestureListeners ? proto.__gestureListeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+        if (proto.__gestureListeners) {
+            proto.__gestureListeners.push({ targetElem, functionKey, eventName })
+            return;
+        }
+
+        proto.__gestureListeners = [{ targetElem, functionKey, eventName }];
     }
 }
 
@@ -85,7 +95,6 @@ function addReadyHandler(proto: any, ) {
             });
         }
     };
-
 }
 
 function customElement(tagname: string) {
