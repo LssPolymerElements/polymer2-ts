@@ -53,7 +53,7 @@ function listen(eventName: string, targetElem?: string) {
 function gestureListen(eventName: string, targetElem?: string) {
     return (proto: any, functionKey: any) => {
 
-        if (proto._addEventListenerToNode || proto._addEventListenerToNode.toString().indexOf("gesture") === -1) {
+        if (!proto._addEventListenerToNode || proto._addEventListenerToNode.toString().indexOf("gesture") === -1) {
             throw new Error("Polymer.Gestures not detected.  You must extend Polymer.GestureEventListeners(Polymer.Element) when using the gestureListen() decorator")
         }
         addReadyHandler(proto);
