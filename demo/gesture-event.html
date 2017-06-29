@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../polymer2-ts.html">
+<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+
+<dom-module id="gesture-event">
+    <template>
+        <style>
+             :host {
+                display: block;
+            }
+
+            .click-box {
+                height: 100px;
+                width: 200px;
+                border: 1px dashed grey;
+                cursor: pointer;
+            }
+
+            .event-msg {
+                width: 200px;
+                text-align: center;
+                padding: 8px;
+            }
+        </style>
+        <div id="click-box" class="click-box"></div>
+        <div class="event-msg">Clicked [[clickCount]] times</div>
+        <div class="event-msg">Mouseover: [[isMouseOver]]</div>
+    </template>
+    <script type="text/javascript" src="gesture-event.js"></script>
+</dom-module>

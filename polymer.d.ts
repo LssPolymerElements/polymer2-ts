@@ -41,15 +41,15 @@ declare var Polymer: {
      */
     Element: PolymerElementConstructor;
 
-
-
     ElementMixin: Mixin<PolymerElement>;
 
     PropertyEffects: Mixin<PolymerPropertyEffects>;
 
     BatchedEffects: Mixin<PolymerBatchedEffects>;
 
+    GestureEventListeners: Mixin<HTMLElement>;
 
+    Gestures: PolymerGestures;
 };
 
 declare interface PolymerElementConstructor {
@@ -81,6 +81,10 @@ declare class PolymerPropertyEffects extends HTMLElement {
     shift(path: string): any;
     unshift(path: string): number;
     splice(path: string, start: number, removeCount?: number, ...items: Array<any>): Array<any>;
+}
+
+declare class PolymerGestures {
+    addListener(element: any, eventName: string, listener: (event: Event) => void): void;
 }
 
 declare class PolymerBatchedEffects extends PolymerPropertyEffects {

@@ -1,4 +1,3 @@
-/// <reference path="../reflect-metadata/Reflect.d.ts" />
 function observe(targets) {
     return (proto, propName) => {
         const targetString = typeof targets === 'string' ? targets : targets.join(',');
@@ -38,28 +37,43 @@ function property(options) {
                 get() { return proto.constructor.__polymer_ts_config; }
             });
         }
-        else {
-            proto.constructor.properties = {
-                get() { return proto.constructor.__polymer_ts_config; }
-            };
-        }
     };
 }
 function listen(eventName, targetElem) {
     return (proto, functionKey) => {
-        if (proto.ready.name === 'addEventListenersOnReady') {
-            proto.ready._listeners.push({ targetElem, functionKey, eventName });
-            return;
+        addReadyHandler(proto);
+        proto.__listeners ? proto.__listeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+    };
+}
+function gestureListen(eventName, targetElem) {
+    return (proto, functionKey) => {
+        if (proto._addEventListenerToNode || proto._addEventListenerToNode.toString().indexOf("gesture") === -1) {
+            throw new Error("Polymer.Gestures not detected.  You must extend Polymer.GestureEventListeners(Polymer.Element) when using the gestureListen() decorator");
         }
-        const ready = proto.ready;
-        proto.ready = function addEventListenersOnReady(...args) {
-            ready.apply(this, args);
-            proto.ready._listeners.forEach((v) => {
+        addReadyHandler(proto);
+        proto.__gestureListeners ? proto.__gestureListeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+    };
+}
+function addReadyHandler(proto) {
+    if (proto.ready.name === 'registerOnReady')
+        return;
+    const ready = proto.ready;
+    proto.ready = function registerOnReady(...args) {
+        ready.apply(this, args);
+        //Add Polymer Gesture Listeners
+        if (proto.__gestureListeners) {
+            proto.__gestureListeners.forEach((v) => {
+                var node = this.$[v.targetElem] || this;
+                Polymer.Gestures.addListener(node, v.eventName, (e) => { this[v.functionKey](e); });
+            });
+        }
+        //Add Event Listeners
+        if (proto.__listeners) {
+            proto.__listeners.forEach((v) => {
                 var node = this.$[v.targetElem] || this;
                 node.addEventListener(v.eventName, (e) => { this[v.functionKey](e); });
             });
-        };
-        proto.ready._listeners = [{ targetElem, functionKey, eventName }];
+        }
     };
 }
 function customElement(tagname) {

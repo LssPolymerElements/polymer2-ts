@@ -29,5 +29,7 @@
     "polymer": "Polymer/polymer#^2.0.0",
     "reflect-metadata": "^0.1.8"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0"
+  }
 }

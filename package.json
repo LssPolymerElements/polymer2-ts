@@ -1,14 +1,16 @@
 {
   "name": "polymer-starter-kit",
   "version": "1.0.0",
-  "description": "Decorators and type definitions for Polymer 2"",
+  "description": "Decorators and type definitions for Polymer 2",
   "main": "service-worker.js",
   "directories": {
     "test": "test"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.18.2",
+    "gulp": "^3.9.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

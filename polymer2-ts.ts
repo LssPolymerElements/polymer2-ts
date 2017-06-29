@@ -1,5 +1,3 @@
-/// <reference path="../reflect-metadata/Reflect.d.ts" />
-
 function observe(targets: string | string[]) {
     return (proto: any, propName: string): any => {
         const targetString = typeof targets === 'string' ? targets : targets.join(',');
@@ -47,21 +45,47 @@ function property<T>(options?: PropertyOptions) {
 
 function listen(eventName: string, targetElem?: string) {
     return (proto: any, functionKey: any) => {
-        if (proto.ready.name === 'addEventListenersOnReady') {
-            proto.ready._listeners.push({ targetElem, functionKey, eventName });
-            return;
+        addReadyHandler(proto);
+        proto.__listeners ? proto.__listeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+    }
+}
+
+function gestureListen(eventName: string, targetElem?: string) {
+    return (proto: any, functionKey: any) => {
+
+        if (proto._addEventListenerToNode || proto._addEventListenerToNode.toString().indexOf("gesture") === -1) {
+            throw new Error("Polymer.Gestures not detected.  You must extend Polymer.GestureEventListeners(Polymer.Element) when using the gestureListen() decorator")
+        }
+        addReadyHandler(proto);
+        proto.__gestureListeners ? proto.__gestureListeners.push({ targetElem, functionKey, eventName }) : [{ targetElem, functionKey, eventName }];
+    }
+}
+
+function addReadyHandler(proto: any, ) {
+    if (proto.ready.name === 'registerOnReady')
+        return;
+
+    const ready = proto.ready;
+    proto.ready = function registerOnReady(...args: any[]) {
+        ready.apply(this, args);
+
+        //Add Polymer Gesture Listeners
+        if (proto.__gestureListeners) {
+            proto.__gestureListeners.forEach((v: any) => {
+                var node = this.$[v.targetElem] || this;
+                Polymer.Gestures.addListener(node, v.eventName, (e: any) => { this[v.functionKey](e) });
+            });
         }
 
-        const ready = proto.ready;
-        proto.ready = function addEventListenersOnReady(...args: any[]) {
-            ready.apply(this, args);
-            proto.ready._listeners.forEach((v: any) => {
+        //Add Event Listeners
+        if (proto.__listeners) {
+            proto.__listeners.forEach((v: any) => {
                 var node = this.$[v.targetElem] || this;
                 node.addEventListener(v.eventName, (e: any) => { this[v.functionKey](e) })
             });
-        };
-        proto.ready._listeners = [{ targetElem, functionKey, eventName }];
-    }
+        }
+    };
+
 }
 
 function customElement(tagname: string) {

@@ -70,6 +70,41 @@ HTML:
 <paper-button id="submitButton">Submit</paper-button>
 ```
 
+### @gestureListen(eventName: string, targetElem?: string)
+This function decorator adds an polymer [gesture listener](https://www.polymer-project.org/2.0/docs/devguide/gesture-events) for the provided event name and calls back the function when the event is fired.
+
+IMPORTANT: When using this decorator your class must apply the gesture mix-in.
+```
+<link rel="import" href="polymer/lib/mixins/gesture-event-listeners.html">
+
+<script>
+    class TestEvent extends Polymer.GestureEventListeners(Polymer.Element) {
+      ...
+</script>
+```
+
+TypeScript:
+```typescript
+class MyElement extends Polymer.Element {
+
+ //Listen for tap events on the element with an id="submitButton"
+  @listen("tap", "submitButton")
+  submitButtonTapHandler(e){
+      doSomething();
+  }
+  
+  //Listen for all tap events on MyElement
+  @listen("tap")
+  tapHandler(e){
+      doSomething();
+  }
+}
+```
+HTML:
+```html
+<paper-button id="submitButton">Submit</paper-button>
+```
+
 
 
 ### computed(name: string)
