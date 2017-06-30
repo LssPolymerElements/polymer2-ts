@@ -6,16 +6,17 @@
     <template>
         <style>
              :host {
-                display: block;
+                @apply --layout-vertical;
             }
 
             .event-msg {
-                width: 200px;
                 text-align: center;
-                padding: 8px;
+                margin: 8px;
             }
 
             paper-button {
+                @apply --layout-center;
+                margin: 8px;
                 background-color: var(--paper-indigo-500);
                 color: white;
                 --paper-button-raised-keyboard-focus: {
@@ -25,11 +26,13 @@
                 ;
             }
         </style>
-        <paper-button raised id="button">Increment Click Count</paper-button>
+
         <div class="event-msg">Click Count: [[complexObject.clickCount]]</div>
 
         <div class="event-msg">Change Event Observed: [[observerChangeFired]]</div>
         <div class="event-msg">Click New Value: [[a]]</div>
+
+        <paper-button raised id="button">Increment Click Count</paper-button>
     </template>
     <script type="text/javascript" src="observe-complex-object-demo.js"></script>
 </dom-module>

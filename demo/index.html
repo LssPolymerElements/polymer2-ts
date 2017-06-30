@@ -9,8 +9,9 @@
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../paper-styles/paper-styles.html">
 
     <link rel="import" href="./gesture-event.html">
     <link rel="import" href="./observe-demo.html">
@@ -25,7 +26,7 @@
 </head>
 
 
-<body>
+<body unresolved>
     <div class="vertical-section-container centered">
         <h2>Gesture Event Demo</h2>
         <gesture-event></gesture-event>
@@ -33,8 +34,8 @@
         <h2>Observer Demo</h2>
 
         <observe-demo></observe-demo>
-        <h2>Observe Complex Object Demo</h2>
 
+        <h2>Observe Complex Object Demo</h2>
         <observe-complex-object-demo></observe-complex-object-demo>
 
     </div>

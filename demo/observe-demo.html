@@ -6,13 +6,23 @@
     <template>
         <style>
              :host {
-                display: block;
+                @apply --layout-vertical;
             }
 
             .event-msg {
-                width: 200px;
                 text-align: center;
-                padding: 8px;
+                margin: 8px;
+            }
+
+            paper-button {
+                margin: 8px;
+                background-color: var(--paper-indigo-500);
+                color: white;
+                --paper-button-raised-keyboard-focus: {
+                    background-color: var(--paper-pink-a200) !important;
+                    color: white !important;
+                }
+                ;
             }
         </style>
         <paper-button raised id="button">Increment Click Count</paper-button>
@@ -21,10 +31,7 @@
         <div class="event-msg">Change Event Observed: [[observerChangeFired]]</div>
         <div class="event-msg">Click New Value: [[a]]</div>
 
-
         <div class="event-msg">New Value Observed: [[aObservedCount]]</div>
-
-
     </template>
     <script type="text/javascript" src="observe-demo.js"></script>
 </dom-module>
