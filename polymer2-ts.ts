@@ -12,7 +12,6 @@ function computed<T>(name: string) {
         var end = funcText.indexOf(")");
         var propertiesList = funcText.substring(start + 1, end);
         var signature = proto[propName].name + "(" + propertiesList + ")";
-        console.log(signature);
         proto.constructor.createComputedProperty(name, signature, true);
     }
 }
@@ -73,7 +72,7 @@ function gestureListen(eventName: string, targetElem?: string) {
 
 //IE 11 Support
 function getName(func: any) {
-    return func.toString().match(/^function\s*([^\s(]+)/)[1];
+    return func.name ? func.name : func.toString().match(/^function\s*([^\s(]+)/)[1];
 }
 
 function addReadyHandler(proto: any, ) {
@@ -84,8 +83,8 @@ function addReadyHandler(proto: any, ) {
     proto.ready = function registerOnReady(...args: any[]) {
         ready.apply(this, args);
 
-        console.log("registering " + proto.__gestureListeners.length + " gestures.")
-        console.log("registering " + proto.__listeners.length + " listeners.")
+        // console.log("registering " + proto.__gestureListeners.length + " gestures.")
+        // console.log("registering " + proto.__listeners.length + " listeners.")
 
         //Add Polymer Gesture Listeners
         if (proto.__gestureListeners) {
@@ -101,7 +100,7 @@ function addReadyHandler(proto: any, ) {
             proto.__listeners.forEach((v: any) => {
                 var node = this.$[v.targetElem] || this;
                 node.addEventListener(v.eventName, (e: any) => { this[v.functionKey](e) })
-                console.log(node, this[v.functionKey].toString(), v.eventName);
+                // console.log(node, this[v.functionKey].toString(), v.eventName);
             });
         }
     };
