@@ -11,7 +11,7 @@ function computed<T>(name: string) {
         var start = funcText.indexOf("(");
         var end = funcText.indexOf(")");
         var propertiesList = funcText.substring(start + 1, end);
-        var signature = proto[propName].name + "(" + propertiesList + ")";
+        var signature = getName(proto[propName]) + "(" + propertiesList + ")";
         proto.constructor.createComputedProperty(name, signature, true);
     }
 }
