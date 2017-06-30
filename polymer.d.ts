@@ -50,6 +50,8 @@ declare var Polymer: {
     GestureEventListeners: Mixin<HTMLElement>;
 
     Gestures: PolymerGestures;
+
+    mixinBehaviors: <T>(mixixs: Array<any>, elem: T) => T
 };
 
 declare interface PolymerElementConstructor {
