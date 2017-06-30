@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>Profile Picture Demo</title>
+    <title>Polymer 2 TypeScript Demos</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="../../polymer/polymer.html">
@@ -13,6 +13,8 @@
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
     <link rel="import" href="./gesture-event.html">
+    <link rel="import" href="./observe-demo.html">
+    <link rel="import" href="./observe-complex-object-demo.html">
 
     <custom-style>
         <style is="custom-style" include="demo-pages-shared-styles">
@@ -25,7 +27,16 @@
 
 <body>
     <div class="vertical-section-container centered">
+        <h2>Gesture Event Demo</h2>
         <gesture-event></gesture-event>
+
+        <h2>Observer Demo</h2>
+
+        <observe-demo></observe-demo>
+        <h2>Observe Complex Object Demo</h2>
+
+        <observe-complex-object-demo></observe-complex-object-demo>
+
     </div>
 </body>
 

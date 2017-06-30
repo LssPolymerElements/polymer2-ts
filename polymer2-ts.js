@@ -1,7 +1,15 @@
 function observe(targets) {
     return (proto, propName) => {
         const targetString = typeof targets === 'string' ? targets : targets.join(',');
-        proto._createMethodObserver(`${propName}(${targetString})`, true);
+        if (!proto.constructor.__polymer_observer_config) {
+            proto.constructor.__polymer_observer_config = (proto.constructor.observers || []);
+        }
+        proto.constructor.__polymer_observer_config.push(`${propName}(${targetString})`);
+        if (!proto.constructor.hasOwnProperty('observers')) {
+            Object.defineProperty(proto.constructor, 'observers', {
+                get() { return proto.constructor.__polymer_observer_config; }
+            });
+        }
     };
 }
 function computed(name) {
@@ -10,8 +18,7 @@ function computed(name) {
         var start = funcText.indexOf("(");
         var end = funcText.indexOf(")");
         var propertiesList = funcText.substring(start + 1, end);
-        var signature = proto[propName].name + "(" + propertiesList + ")";
-        console.log(signature);
+        var signature = getName(proto[propName]) + "(" + propertiesList + ")";
         proto.constructor.createComputedProperty(name, signature, true);
     };
 }
@@ -62,17 +69,24 @@ function gestureListen(eventName, targetElem) {
         proto.__gestureListeners = [{ targetElem, functionKey, eventName }];
     };
 }
+//IE 11 Support
+function getName(func) {
+    return func.name ? func.name : func.toString().match(/^function\s*([^\s(]+)/)[1];
+}
 function addReadyHandler(proto) {
-    if (proto.ready.name === 'registerOnReady')
+    if (getName(proto.ready) === 'registerOnReady')
         return;
     const ready = proto.ready;
     proto.ready = function registerOnReady(...args) {
         ready.apply(this, args);
+        // console.log("registering " + proto.__gestureListeners.length + " gestures.")
+        // console.log("registering " + proto.__listeners.length + " listeners.")
         //Add Polymer Gesture Listeners
         if (proto.__gestureListeners) {
             proto.__gestureListeners.forEach((v) => {
                 var node = this.$[v.targetElem] || this;
                 Polymer.Gestures.addListener(node, v.eventName, (e) => { this[v.functionKey](e); });
+                console.log(node, this[v.functionKey].toString(), v.eventName);
             });
         }
         //Add Event Listeners
@@ -80,6 +94,7 @@ function addReadyHandler(proto) {
             proto.__listeners.forEach((v) => {
                 var node = this.$[v.targetElem] || this;
                 node.addEventListener(v.eventName, (e) => { this[v.functionKey](e); });
+                // console.log(node, this[v.functionKey].toString(), v.eventName);
             });
         }
     };

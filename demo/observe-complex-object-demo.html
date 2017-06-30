@@ -1,0 +1,35 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../polymer2-ts.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="observe-complex-object-demo">
+    <template>
+        <style>
+             :host {
+                display: block;
+            }
+
+            .event-msg {
+                width: 200px;
+                text-align: center;
+                padding: 8px;
+            }
+
+            paper-button {
+                background-color: var(--paper-indigo-500);
+                color: white;
+                --paper-button-raised-keyboard-focus: {
+                    background-color: var(--paper-pink-a200) !important;
+                    color: white !important;
+                }
+                ;
+            }
+        </style>
+        <paper-button raised id="button">Increment Click Count</paper-button>
+        <div class="event-msg">Click Count: [[complexObject.clickCount]]</div>
+
+        <div class="event-msg">Change Event Observed: [[observerChangeFired]]</div>
+        <div class="event-msg">Click New Value: [[a]]</div>
+    </template>
+    <script type="text/javascript" src="observe-complex-object-demo.js"></script>
+</dom-module>
