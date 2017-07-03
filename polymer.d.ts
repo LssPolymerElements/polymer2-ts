@@ -51,6 +51,8 @@ declare var Polymer: {
 
     Gestures: PolymerGestures;
 
+    importHref: (href: string, onload?: Function, onerror?: Function, optAsync?: boolean) => HTMLLinkElement;
+
     mixinBehaviors: <T>(mixixs: Array<any>, elem: T) => T
 };
 
@@ -68,7 +70,9 @@ declare class PolymerElement extends PolymerMetaEffects {
     disconnectedCallback(): void;
     attributeChangedCallback(): void;
     updateStyles(properties: string[]): void;
-
+    resolveUrl(url: string, baseURI: string): string;
+    resolveCss(cssText: string, baseURI: string): string;
+    pathFromUrl(url: string): string;
 }
 
 declare class PolymerPropertyEffects extends HTMLElement {
