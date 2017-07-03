@@ -1,3 +1,5 @@
+/// <reference path="../reflect-metadata/Reflect.d.ts" />
+
 function observe(targets: string | string[]) {
     return (proto: any, propName: string): any => {
         const targetString = typeof targets === 'string' ? targets : targets.join(',');
