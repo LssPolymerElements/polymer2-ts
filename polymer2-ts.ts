@@ -104,7 +104,7 @@ function addReadyHandler(proto: any, ) {
             proto.__gestureListeners.forEach((v: any) => {
                 var node = this.$[v.targetElem] || this;
                 Polymer.Gestures.addListener(node, v.eventName, (e: any) => { this[v.functionKey](e) });
-                console.log(node, this[v.functionKey].toString(), v.eventName);
+                // console.log(node, this[v.functionKey].toString(), v.eventName);
             });
         }
 
