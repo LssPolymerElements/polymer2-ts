@@ -3,7 +3,7 @@
 To install use: `bower install --save polymer2-ts`
 
 ## Overview  
-Typescript behaviors and type definitions for Polymer 2.0.  
+Typescript decorators and type definitions for Polymer 2.0.  
 
 ## Available Behaviors
 
