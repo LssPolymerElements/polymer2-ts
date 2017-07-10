@@ -1,5 +1,4 @@
 /// <reference path="../reflect-metadata/Reflect.d.ts" />
-/// <reference path="./bower_components/reflect-metadata/Reflect.d.ts" />
 
 function observe(targets: string | string[]) {
     return (proto: any, propName: string): any => {
