@@ -1,4 +1,4 @@
-/// <reference path="../reflect-metadata/Reflect.d.ts" />
+/// <reference path="./bower_components/reflect-metadata/Reflect.d.ts" />
 
 function observe(targets: string | string[]) {
     return (proto: any, propName: string): any => {
@@ -15,18 +15,18 @@ function observe(targets: string | string[]) {
                 get() { return proto.constructor.__polymer_observer_config; }
             });
         }
-    }
+    };
 }
 
 function computed<T>(name: string) {
     return (proto: any, propName: string): any => {
-        var funcText = proto[propName].toString();
-        var start = funcText.indexOf("(");
-        var end = funcText.indexOf(")");
-        var propertiesList = funcText.substring(start + 1, end);
-        var signature = getName(proto[propName]) + "(" + propertiesList + ")";
+        let funcText = proto[propName].toString();
+        let start = funcText.indexOf('(');
+        let end = funcText.indexOf(')');
+        let propertiesList = funcText.substring(start + 1, end);
+        let signature = getName(proto[propName]) + '(' + propertiesList + ')';
         proto.constructor.createComputedProperty(name, signature, true);
-    }
+    };
 }
 
 function property<T>(options?: PropertyOptions) {
@@ -39,7 +39,7 @@ function property<T>(options?: PropertyOptions) {
             proto.constructor.__polymer_ts_config = (proto.constructor.properties || {});
         }
 
-        const type = Reflect.getMetadata("design:type", proto, propName);
+        const type = Reflect.getMetadata('design:type', proto, propName);
         let propConfig: any = {};
         if (type) propConfig.type = true;
         if (notify) propConfig.notify = true;
@@ -52,35 +52,35 @@ function property<T>(options?: PropertyOptions) {
                 get() { return proto.constructor.__polymer_ts_config; }
             });
         }
-    }
+    };
 }
 
 function listen(eventName: string, targetElem?: string) {
     return (proto: any, functionKey: any) => {
         addReadyHandler(proto);
         if (proto.__listeners) {
-            proto.__listeners.push({ targetElem, functionKey, eventName })
+            proto.__listeners.push({ targetElem, functionKey, eventName });
             return;
         }
 
         proto.__listeners = [{ targetElem, functionKey, eventName }];
-    }
+    };
 }
 
 function gestureListen(eventName: string, targetElem?: string) {
     return (proto: any, functionKey: any) => {
 
-        if (!proto._addEventListenerToNode || proto._addEventListenerToNode.toString().indexOf("gesture") === -1) {
-            throw new Error("Polymer.Gestures not detected.  You must extend Polymer.GestureEventListeners(Polymer.Element) when using the gestureListen() decorator")
+        if (!proto._addEventListenerToNode || proto._addEventListenerToNode.toString().indexOf('gesture') === -1) {
+            throw new Error('Polymer.Gestures not detected.  You must extend Polymer.GestureEventListeners(Polymer.Element) when using the gestureListen() decorator');
         }
         addReadyHandler(proto);
         if (proto.__gestureListeners) {
-            proto.__gestureListeners.push({ targetElem, functionKey, eventName })
+            proto.__gestureListeners.push({ targetElem, functionKey, eventName });
             return;
         }
 
         proto.__gestureListeners = [{ targetElem, functionKey, eventName }];
-    }
+    };
 }
 
 //IE 11 Support
@@ -102,8 +102,8 @@ function addReadyHandler(proto: any, ) {
         //Add Polymer Gesture Listeners
         if (proto.__gestureListeners) {
             proto.__gestureListeners.forEach((v: any) => {
-                var node = this.$[v.targetElem] || this;
-                Polymer.Gestures.addListener(node, v.eventName, (e: any) => { this[v.functionKey](e) });
+                let node = this.$[v.targetElem] || this;
+                Polymer.Gestures.addListener(node, v.eventName, (e: any) => { this[v.functionKey](e); });
                 // console.log(node, this[v.functionKey].toString(), v.eventName);
             });
         }
@@ -111,8 +111,8 @@ function addReadyHandler(proto: any, ) {
         //Add Event Listeners
         if (proto.__listeners) {
             proto.__listeners.forEach((v: any) => {
-                var node = this.$[v.targetElem] || this;
-                node.addEventListener(v.eventName, (e: any) => { this[v.functionKey](e) })
+                let node = this.$[v.targetElem] || this;
+                node.addEventListener(v.eventName, (e: any) => { this[v.functionKey](e); });
                 // console.log(node, this[v.functionKey].toString(), v.eventName);
             });
         }
@@ -123,11 +123,11 @@ function customElement(tagname: string) {
     return (klass: any) => {
         klass.is = tagname;
         window.customElements.define(tagname, klass);
-    }
+    };
 }
 
 interface PropertyOptions {
     notify?: boolean;
     reflectToAttribute?: boolean;
     readOnly?: boolean;
-};
+}
