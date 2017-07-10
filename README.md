@@ -1,5 +1,7 @@
 # polymer2-ts
 
+[![Build status](https://ci.appveyor.com/api/projects/status/ama6h2kudvjiwapy?svg=true)](https://ci.appveyor.com/project/aarondrabeck/polymer2-ts)
+
 To install use: `bower install --save polymer2-ts`
 
 ## Overview  
