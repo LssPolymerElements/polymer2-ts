@@ -38,6 +38,7 @@ notifications:
   on_build_status_changed: false
   template: "<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_"
   
+skip_tags: true
 version: 1.1.{build}
 deploy:
 - provider: GitHub
