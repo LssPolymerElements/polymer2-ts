@@ -1,5 +1,3 @@
-/// <reference path="../reflect-metadata/Reflect.d.ts" />
-
 function observe(targets: string | string[]) {
     return (proto: any, propName: string): any => {
         const targetString = typeof targets === 'string' ? targets : targets.join(',');
@@ -39,7 +37,7 @@ function property<T>(options?: PropertyOptions) {
             proto.constructor.__polymer_ts_config = (proto.constructor.properties || {});
         }
 
-        const type = Reflect.getMetadata('design:type', proto, propName);
+        const type = (<any>Reflect).getMetadata('design:type', proto, propName);
         let propConfig: any = {};
         if (type) propConfig.type = true;
         if (notify) propConfig.notify = true;
