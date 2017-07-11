@@ -38,3 +38,10 @@ notifications:
   on_build_status_changed: false
   template: "<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_"
   
+version: 1.1.{build}
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: 73BMyeWNs+Y0cyNA2FzsPiO4b93zn8pBdSO/oPc9GvT+znZj4vZAWF0bIu0G6G3i
+  on:
+    branch: master
