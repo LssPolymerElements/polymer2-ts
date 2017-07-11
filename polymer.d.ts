@@ -53,7 +53,9 @@ declare var Polymer: {
 
     importHref: (href: string, onload?: Function, onerror?: Function, optAsync?: boolean) => HTMLLinkElement;
 
-    mixinBehaviors: <T>(mixixs: Array<any>, elem: T) => T
+    mixinBehaviors: <T>(mixixs: Array<any>, elem: T) => T;
+
+    dom: (elem: HTMLElement) => any;
 };
 
 declare interface PolymerElementConstructor {
