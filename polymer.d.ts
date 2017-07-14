@@ -9,7 +9,7 @@
  */
 
 interface Constructor<T> {
-    new (...args: any[]): T;
+    new(...args: any[]): T;
 }
 
 /**
@@ -56,10 +56,12 @@ declare var Polymer: {
     mixinBehaviors: <T>(mixixs: Array<any>, elem: T) => T;
 
     dom: (elem: HTMLElement) => any;
+
+
 };
 
 declare interface PolymerElementConstructor {
-    new (): PolymerElement;
+    new(): PolymerElement;
 }
 
 declare class PolymerElement extends PolymerMetaEffects {
@@ -72,9 +74,10 @@ declare class PolymerElement extends PolymerMetaEffects {
     disconnectedCallback(): void;
     attributeChangedCallback(): void;
     updateStyles(properties: string[]): void;
-    resolveUrl(url: string, baseURI: string): string;
+    resolveUrl(url: string, baseURI?: string): string;
     resolveCss(cssText: string, baseURI: string): string;
     pathFromUrl(url: string): string;
+    rootPath: string;
 }
 
 declare class PolymerPropertyEffects extends HTMLElement {
