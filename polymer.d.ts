@@ -50,6 +50,8 @@ declare var Polymer: {
     GestureEventListeners: Mixin<HTMLElement>;
 
     Gestures: PolymerGestures;
+	
+	IronMeta: any;
 
     importHref: (href: string, onload?: Function, onerror?: Function, optAsync?: boolean) => HTMLLinkElement;
 
