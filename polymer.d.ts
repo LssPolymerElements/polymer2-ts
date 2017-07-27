@@ -94,6 +94,7 @@ declare class PolymerPropertyEffects extends HTMLElement {
     shift(path: string): any;
     unshift(path: string): number;
     splice(path: string, start: number, removeCount?: number, ...items: Array<any>): Array<any>;
+    notifyPath(path: string): void;
 }
 
 declare class PolymerGestures {
