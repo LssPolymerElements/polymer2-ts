@@ -52,7 +52,7 @@ declare var Polymer: {
     Gestures: PolymerGestures;
 
     IronMeta: any;
-    
+
     AppLayout: {
         scroll: (options: object) => void;
     };
