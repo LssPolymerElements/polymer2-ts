@@ -52,6 +52,10 @@ declare var Polymer: {
     Gestures: PolymerGestures;
 
     IronMeta: any;
+    
+    AppLayout: {
+        scroll: (options: object) => void;
+    };
 
     importHref: (href: string, onload?: Function, onerror?: Function, optAsync?: boolean) => HTMLLinkElement;
 
