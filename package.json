@@ -1,26 +1,27 @@
 {
-  "name": "polymer2-ts",
-  "version": "1.0.0",
-  "description": "Decorators and type definitions for Polymer 2",
-  "main": "service-worker.js",
-  "directories": {
-    "test": "test"
+  "name": "@leavittsoftware/polymer-ts",
+  "version": "3.0.0-pre.1",
+  "license": "MIT",
+  "flat": true,
+  "description": "Decorators and type definitions for Polymer 3",
+  "contributors": [
+    "Leavitt Software"
+  ],
+  "repository": "https://github.com/LssPolymerElements/polymer2-ts.git",
+  "dependencies": {
+    "@polymer/polymer": "next",
+    "@webcomponents/webcomponentsjs": "^1.0.9"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "tslint": "^4.0.2",
-    "browser-sync": "^2.18.2",
-    "gulp": "^3.9.1",
-    "typescript": "^2.4.1",
-    "bower": "*"
-  },
+  "devDependencies": {},
   "scripts": {
     "prepublish": "npm run build",
-    "postinstall": "bower install",
     "lint": "tslint \"*.ts\"",
     "build": "tsc",
     "test": "npm run lint && npm run build"
   },
-  "author": "",
-  "license": "ISC"
+  "main": "index.js",
+  "author": "Aaron Drabeck <github@aarondrabeck.com>",
+  "resolutions": {
+    "@webcomponents/webcomponentsjs": "1.0.9"
+  }
 }
