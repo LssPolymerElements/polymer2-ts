@@ -7,51 +7,87 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-let ObserveComplexObjectChangeDemo = class ObserveComplexObjectChangeDemo extends Polymer.Element {
+import CustomElement from '../custom-element-decorator.js';
+import Property from '../property-decorator.js';
+import Observe from '../observe-decorator.js';
+import Listen from '../listen-decorator.js';
+import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+let ObserveComplexObjectChangeDemo = class ObserveComplexObjectChangeDemo extends PolymerElement {
     constructor() {
         super(...arguments);
         this.observerChangeFired = 0;
         this.complexObject = {
-            "clickCount": 0
+            'clickCount': 0
         };
         this.a = {};
     }
+    static get template() {
+        return `<style>
+                    :host {
+                    @apply --layout-vertical;
+                }
+
+                .event-msg {
+                    text-align: center;
+                    margin: 8px;
+                }
+
+                paper-button {
+                    @apply --layout-center;
+                    margin: 8px;
+                    background-color: var(--paper-indigo-500);
+                    color: white;
+                    --paper-button-raised-keyboard-focus: {
+                        background-color: var(--paper-pink-a200) !important;
+                        color: white !important;
+                    }
+                    ;
+                }
+            </style>
+
+            <div class="event-msg">Click Count: [[complexObject.clickCount]]</div>
+
+            <div class="event-msg">Change Event Observed: [[observerChangeFired]]</div>
+            <div class="event-msg">Click New Value: [[a]]</div>
+
+            <button raised id="button">Increment Click Count</button>`;
+    }
     ready() {
         super.ready();
-        console.log("observe-complex-object-demo demo ready.");
+        console.log('observe-complex-object-demo demo ready.');
     }
     countChanged(a) {
         this.observerChangeFired++;
         this.a = JSON.stringify(a);
     }
     onButtonTap() {
-        this.set("complexObject.clickCount", this.complexObject.clickCount + 1);
+        this.set('complexObject.clickCount', this.complexObject.clickCount + 1);
     }
 };
 __decorate([
-    property(),
+    Property(),
     __metadata("design:type", Number)
 ], ObserveComplexObjectChangeDemo.prototype, "observerChangeFired", void 0);
 __decorate([
-    property(),
+    Property(),
     __metadata("design:type", Object)
 ], ObserveComplexObjectChangeDemo.prototype, "complexObject", void 0);
 __decorate([
-    property(),
+    Property(),
     __metadata("design:type", Object)
 ], ObserveComplexObjectChangeDemo.prototype, "a", void 0);
 __decorate([
-    observe("complexObject.*"),
+    Observe('complexObject.*'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], ObserveComplexObjectChangeDemo.prototype, "countChanged", null);
 __decorate([
-    listen("tap", "button"),
+    Listen('click', 'button'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ObserveComplexObjectChangeDemo.prototype, "onButtonTap", null);
 ObserveComplexObjectChangeDemo = __decorate([
-    customElement("observe-complex-object-demo")
+    CustomElement('observe-complex-object-demo')
 ], ObserveComplexObjectChangeDemo);

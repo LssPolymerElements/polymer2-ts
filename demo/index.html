@@ -5,39 +5,31 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>Polymer 2 TypeScript Demos</title>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <title>Polymer 3 TypeScript Demos</title>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js">
+    </script>
 
-    <link rel="import" href="../../polymer/polymer.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../paper-styles/paper-styles.html">
-
-    <link rel="import" href="./gesture-event.html">
-    <link rel="import" href="./observe-demo.html">
-    <link rel="import" href="./observe-complex-object-demo.html">
+    <script type="module" src="./observe-demo.js"></script>
+    <script type="module" src="./observe-complex-object-demo.js"></script>
+    <script type="module" src="./gesture-event-demo.js"></script>
 
     <custom-style>
-        <style is="custom-style" include="demo-pages-shared-styles">
+        <style is="custom-style">
 
         </style>
     </custom-style>
 
 </head>
 
-
 <body unresolved>
     <div class="vertical-section-container centered">
-        <h2>Gesture Event Demo</h2>
-        <gesture-event></gesture-event>
-
         <h2>Observer Demo</h2>
-
         <observe-demo></observe-demo>
+        <h2>Complex Observer Demo</h2>
+        <observe-complex-object-demo> </observe-complex-object-demo>
 
-        <h2>Observe Complex Object Demo</h2>
-        <observe-complex-object-demo></observe-complex-object-demo>
-
+        <h2>Gesture Event Demo</h2>
+        <gesture-event-demo></gesture-event-demo>
     </div>
 </body>
 
