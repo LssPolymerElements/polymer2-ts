@@ -1,6 +1,6 @@
 import OnReadyHandler from './on-ready-handler.js';
 
-export function GestureListen(eventName: string, targetElem?: string) {
+export default function GestureListen(eventName: string, targetElem?: string) {
     return (proto: any, functionKey: any) => {
 
         if (!proto._addEventListenerToNode || proto._addEventListenerToNode.toString().indexOf('gesture') === -1) {

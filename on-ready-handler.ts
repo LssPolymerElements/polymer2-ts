@@ -18,7 +18,7 @@ export default function OnReadyHandler(proto: any, ) {
         if (proto.__gestureListeners) {
             proto.__gestureListeners.forEach((v: any) => {
                 let node = this.$[v.targetElem] || this;
-                Polymer.Gestures.addListener(node, v.eventName, (e: any) => { this[v.functionKey](e); });
+                proto._addEventListenerToNode(node, v.eventName, (e: any) => { this[v.functionKey](e); });
                 // console.log(node, this[v.functionKey].toString(), v.eventName);
             });
         }
