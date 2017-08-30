@@ -14,7 +14,7 @@ gulp.task('compile', function (done) {
 });
 
 gulp.task('polymerServe', function (done) {
-    exec('polymer serve -p 8000 -v', function (err, stdOut, stdErr) {
+    exec('polymer serve -p 8000 --npm', function (err, stdOut, stdErr) {
         console.log(stdOut);
         if (err) {
             done(err);
@@ -27,7 +27,7 @@ gulp.task('polymerServe', function (done) {
 gulp.task('browser-sync', function () {
     browserSync.init({
         proxy: "localhost:8000",
-        startPath: '/components/polymer2-ts/demo/index.html',
+        startPath: '/components/@leavittsoftware/polymer-ts/demo//index.html',
     });
 });
 
