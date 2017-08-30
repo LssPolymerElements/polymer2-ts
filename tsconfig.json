@@ -1,20 +1,23 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es2015",
+    "target": "ES6",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
+    "removeComments": true,
     "sourceMap": false,
+    "allowJs": true,
     "lib": ["es2017", "dom"],
     "typeRoots": ["types"]
   },
   "exclude": [
     "node_modules",
     "build",
-    "bower_components/**/demo/*",
-    "bower_components"
+    "lib/**/*",
+    "gulpfile.js"
   ]
+
 }

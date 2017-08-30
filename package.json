@@ -10,9 +10,12 @@
   "repository": "https://github.com/LssPolymerElements/polymer2-ts.git",
   "dependencies": {
     "@polymer/polymer": "next",
-    "@webcomponents/webcomponentsjs": "^1.0.9"
+    "@webcomponents/webcomponentsjs": "^1.0.9",
+    "browser-sync": "^2.18.13"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
   "scripts": {
     "prepublish": "npm run build",
     "lint": "tslint \"*.ts\"",
@@ -22,6 +25,44 @@
   "main": "index.js",
   "author": "Aaron Drabeck <github@aarondrabeck.com>",
   "resolutions": {
-    "@webcomponents/webcomponentsjs": "1.0.9"
+    "@webcomponents/webcomponentsjs": "1.0.9",
+    "minimist": "1.2.0",
+    "through2": "2.0.3",
+    "vinyl": "0.5.3",
+    "readable-stream": "2.3.3",
+    "isarray": "1.0.0",
+    "string_decoder": "1.0.3",
+    "inherits": "2.0.3",
+    "clone": "1.0.2",
+    "kind-of": "4.0.0",
+    "is-number": "3.0.0",
+    "isobject": "3.0.1",
+    "for-own": "1.0.0",
+    "expand-tilde": "2.0.2",
+    "once": "1.4.0",
+    "graceful-fs": "3.0.11",
+    "glob": "4.5.3",
+    "minimatch": "2.0.10",
+    "semver": "4.3.6",
+    "object-assign": "4.1.1",
+    "mkdirp": "0.5.1",
+    "strip-bom": "2.0.0",
+    "lodash": "3.10.1",
+    "connect": "3.5.0",
+    "qs": "6.2.1",
+    "yargs": "6.4.0",
+    "fresh": "0.5.0",
+    "nopt": "4.0.1",
+    "mime": "1.3.4",
+    "assert-plus": "1.0.0",
+    "debug": "2.6.4",
+    "ms": "2.0.0",
+    "camelcase": "3.0.0",
+    "window-size": "0.2.0",
+    "accepts": "1.3.4",
+    "http-errors": "1.6.2",
+    "setprototypeof": "1.0.3",
+    "has-binary": "0.1.7",
+    "component-emitter": "1.2.1"
   }
 }

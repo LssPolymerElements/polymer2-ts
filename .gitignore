@@ -3,4 +3,5 @@ dist
 node_modules
 build
 !build/bundled/publish.csproj
-/src/**/*.js
+*.js
+!lib/*.js

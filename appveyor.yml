@@ -2,6 +2,9 @@
 environment:
   nodejs_version: "6"
 
+cache:
+ - "%LOCALAPPDATA%\\Yarn"
+
 # Install scripts. (runs after repo cloning)
 install:
   # Get the latest stable version of Node.js or io.js
@@ -39,7 +42,7 @@ notifications:
   template: "<{{buildUrl}}|Build [{{projectName}}] {{buildVersion}} {{status}}> Commit <{{commitUrl}}|{{commitId}}> by {{commitAuthor}} on {{commitDate}}: _{{commitMessage}}_"
   
 skip_tags: true
-version: 1.1.{build}
+version: 3.0.{build}
 deploy:
 - provider: GitHub
   auth_token:
