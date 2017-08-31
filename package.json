@@ -10,11 +10,12 @@
   "repository": "https://github.com/LssPolymerElements/polymer2-ts.git",
   "dependencies": {
     "@polymer/polymer": "next",
-    "@webcomponents/webcomponentsjs": "^1.0.9",
-    "browser-sync": "^2.18.13"
+    "@webcomponents/webcomponentsjs": "^1.0.9"
   },
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "tslint": "^5.7.0"
   },
   "scripts": {
     "prepublish": "npm run build:silent",
