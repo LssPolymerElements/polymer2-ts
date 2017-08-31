@@ -36,7 +36,7 @@ This property decorator will register your properties for you. Do not declare a 
 ```typescript
 
 import Property from '../node_modules/@leavittsoftware/polymer-ts/property-decorator.js';
-class MyElement extends PolymerElement {
+export class MyElement extends PolymerElement {
 
     @Property({ reflectToAttribute: true, notify: true })
     shape: string = "circle";
@@ -61,7 +61,7 @@ TypeScript:
 ```typescript
 
 import Listen from '../node_modules/@leavittsoftware/polymer-ts/listen-decorator.js';
-class MyElement extends PolymerElement {
+export class MyElement extends PolymerElement {
 
  //Listen for tap events on the element with an id="submitButton"
   @Listen("tap", "submitButton")
@@ -87,14 +87,9 @@ This function decorator adds an polymer [gesture listener](https://www.polymer-p
 
 IMPORTANT: When using this decorator your class must apply the gesture mix-in.
 ```
-
-
 <script>
-    import GestureListen from '../node_modules/@leavittsoftware/polymer-ts/gesture-listen-decorator.js';
-    import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
-    import { GestureEventListeners as GestureEventListeners } from '../node_modules/@polymer/polymer/lib/mixins/gesture-event-listeners.js';
     
-    class TestEvent extends Polymer.GestureEventListeners(Polymer.Element) {
+    export class TestEvent extends GestureEventListeners(PolymerElement) {
       ...
 </script>
 ```
@@ -103,19 +98,19 @@ TypeScript:
 ```typescript
 
 import Property from '../node_modules/@leavittsoftware/polymer-ts/property-decorator.js';
-import Listen from '../node_modules/@leavittsoftware/polymer-ts/listen-decorator.js';
+import GestureListen from '../node_modules/@leavittsoftware/polymer-ts/gesture-listen-decorator.js';
 import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
 
-class MyElement extends PolymerElement {
+export class MyElement extends PolymerElement {
 
  //Listen for tap events on the element with an id="submitButton"
-  @Listen("tap", "submitButton")
+  @GestureListen("tap", "submitButton")
   submitButtonTapHandler(e){
       doSomething();
   }
   
   //Listen for all tap events on MyElement
-  @Listen("tap")
+  @GestureListen("tap")
   tapHandler(e){
       doSomething();
   }
@@ -136,7 +131,7 @@ import Property from '../node_modules/@leavittsoftware/polymer-ts/property-decor
 import Computed from '../node_modules/@leavittsoftware/polymer-ts/computed-decorator.js';
 import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
 
-class MyElement extends PolymerElement {
+export class MyElement extends PolymerElement {
   @Property( )
   numOne: number = 1;
     
