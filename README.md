@@ -21,8 +21,9 @@ This class decorator will automatically add the is() getter and register your el
 
 ```typescript
 
-@customElement("my-element")
-class MyElement extends Polymer.Element {
+import CustomElement from '../node_modules/@leavittsoftware/polymer-ts/custom-element-decorator.js';
+@CustomElement("my-element")
+class MyElement extends PolymerElement {
 
 }
 
@@ -34,12 +35,13 @@ This property decorator will register your properties for you. Do not declare a 
 
 ```typescript
 
-class MyElement extends Polymer.Element {
+import Property from '../node_modules/@leavittsoftware/polymer-ts/property-decorator.js';
+class MyElement extends PolymerElement {
 
-    @property({ reflectToAttribute: true, notify: true })
+    @Property({ reflectToAttribute: true, notify: true })
     shape: string = "circle";
     
-    @property()
+    @Property()
     size: number = 60;    
 }
 
@@ -57,34 +59,41 @@ This function decorator adds an event listener for the provided event name and c
 
 TypeScript:
 ```typescript
-class MyElement extends Polymer.Element {
+
+import Listen from '../node_modules/@leavittsoftware/polymer-ts/listen-decorator.js';
+class MyElement extends PolymerElement {
 
  //Listen for tap events on the element with an id="submitButton"
-  @listen("tap", "submitButton")
+  @Listen("tap", "submitButton")
   submitButtonTapHandler(e){
       doSomething();
   }
   
   //Listen for all tap events on MyElement
-  @listen("tap")
+  @Listen("tap")
   tapHandler(e){
       doSomething();
   }
+  
+  static get template(){
+      return `<paper-button id="submitButton">Submit</paper-button>`;
+  }
 }
 ```
-HTML:
-```html
-<paper-button id="submitButton">Submit</paper-button>
-```
+
 
 ### @GestureListen(eventName: string, targetElem?: string)
 This function decorator adds an polymer [gesture listener](https://www.polymer-project.org/2.0/docs/devguide/gesture-events) for the provided event name and calls back the function when the event is fired.
 
 IMPORTANT: When using this decorator your class must apply the gesture mix-in.
 ```
-<link rel="import" href="polymer/lib/mixins/gesture-event-listeners.html">
+
 
 <script>
+    import GestureListen from '../node_modules/@leavittsoftware/polymer-ts/gesture-listen-decorator.js';
+    import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+    import { GestureEventListeners as GestureEventListeners } from '../node_modules/@polymer/polymer/lib/mixins/gesture-event-listeners.js';
+    
     class TestEvent extends Polymer.GestureEventListeners(Polymer.Element) {
       ...
 </script>
@@ -92,27 +101,28 @@ IMPORTANT: When using this decorator your class must apply the gesture mix-in.
 
 TypeScript:
 ```typescript
-class MyElement extends Polymer.Element {
+
+import Property from '../node_modules/@leavittsoftware/polymer-ts/property-decorator.js';
+import Listen from '../node_modules/@leavittsoftware/polymer-ts/listen-decorator.js';
+import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+
+class MyElement extends PolymerElement {
 
  //Listen for tap events on the element with an id="submitButton"
-  @listen("tap", "submitButton")
+  @Listen("tap", "submitButton")
   submitButtonTapHandler(e){
       doSomething();
   }
   
   //Listen for all tap events on MyElement
-  @listen("tap")
+  @Listen("tap")
   tapHandler(e){
       doSomething();
   }
+
+  static get template() { return '<paper-button id="submitButton">Submit</paper-button>'; }
 }
 ```
-HTML:
-```html
-<paper-button id="submitButton">Submit</paper-button>
-```
-
-
 
 ### Computed(name: string)
 This function decorator registers a computed property with the provided name.  When one or more associated properties change, 
@@ -121,22 +131,25 @@ the computed property is updated.
 ```typescript
 
 TypeScript:
-class MyElement extends Polymer.Element {
-  @property( )
+
+import Property from '../node_modules/@leavittsoftware/polymer-ts/property-decorator.js';
+import Computed from '../node_modules/@leavittsoftware/polymer-ts/computed-decorator.js';
+import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+
+class MyElement extends PolymerElement {
+  @Property( )
   numOne: number = 1;
     
-  @property( )
+  @Property( )
   numTwo: number = 2;
         
-  @computed('total')
+  @Computed('total')
   getSrc(numOne: number, numTwo: number) : number {
     return numOne + numTwo;
   }
+  
+  static get template(){ return '<h1>[[total]]</h1>'; }
 }
-```
-HTML:
-```html
-<h1>[[total]]</h1>
 ```
 Result:
 ```html
