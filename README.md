@@ -10,7 +10,7 @@ Changes from 2.0 to 3.0-preview
  - Decorators are now title case. 
 
 ## Overview  
-Typescript decorators and type definitions for Polymer 2.0.  
+Typescript decorators and type definitions for Polymer 3.0  
 
 ## Available Behaviors
 
