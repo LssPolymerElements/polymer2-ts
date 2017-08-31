@@ -17,10 +17,11 @@
     "gulp": "^3.9.1"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run build:silent",
     "lint": "tslint \"*.ts\"",
     "build": "tsc",
-    "test": "npm run lint && npm run build"
+    "build:silent": "tsc || cd .",
+    "test": "npm run lint && npm run build:silent"
   },
   "main": "index.js",
   "author": "Aaron Drabeck <github@aarondrabeck.com>",
