@@ -1,8 +1,13 @@
-# polymer2-ts
+# polymer-ts 3.0 PREVIEW
 
 [![Build status](https://ci.appveyor.com/api/projects/status/ama6h2kudvjiwapy?svg=true)](https://ci.appveyor.com/project/aarondrabeck/polymer2-ts)
 
-To install use: `bower install --save polymer2-ts`
+To install use: `yarn add @leavittsoftware/polymer-ts`
+
+## Change Log
+Changes from 2.0 to 3.0-preview
+ - Uses ES6 Modules rather than HTML imports.
+ - Decorators are now title case. 
 
 ## Overview  
 Typescript decorators and type definitions for Polymer 2.0.  
@@ -11,7 +16,7 @@ Typescript decorators and type definitions for Polymer 2.0.
 
 
 
-### @customElement()
+### @CustomElement()
 This class decorator will automatically add the is() getter and register your element. 
 
 ```typescript
@@ -24,7 +29,7 @@ class MyElement extends Polymer.Element {
 ```
 
 
-### @property(options?: PropertyOptions)
+### @Property(options?: PropertyOptions)
 This property decorator will register your properties for you. Do not declare a properties getter.  The type is inferred by the type declared in TypeScript.  Assign defaults to the property directly. 
 
 ```typescript
@@ -47,7 +52,7 @@ class MyElement extends Polymer.Element {
 ```
 
 
-### @listen(eventName: string, targetElem?: string)
+### @Listen(eventName: string, targetElem?: string)
 This function decorator adds an event listener for the provided event name and calls back the function when the event is fired.
 
 TypeScript:
@@ -72,7 +77,7 @@ HTML:
 <paper-button id="submitButton">Submit</paper-button>
 ```
 
-### @gestureListen(eventName: string, targetElem?: string)
+### @GestureListen(eventName: string, targetElem?: string)
 This function decorator adds an polymer [gesture listener](https://www.polymer-project.org/2.0/docs/devguide/gesture-events) for the provided event name and calls back the function when the event is fired.
 
 IMPORTANT: When using this decorator your class must apply the gesture mix-in.
@@ -109,7 +114,7 @@ HTML:
 
 
 
-### computed(name: string)
+### Computed(name: string)
 This function decorator registers a computed property with the provided name.  When one or more associated properties change, 
 the computed property is updated. 
 
@@ -143,19 +148,19 @@ Result:
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "es2015",
+    "target": "ES6",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
     "sourceMap": false,
+    "allowJs": true,
     "lib": ["es2017", "dom"],
     "typeRoots": ["types"]
   },
   "exclude": [    
-    "node_modules",
-    "bower_components/reflect-metadata/"
+    "node_modules"
   ]
 }
 ```
@@ -164,42 +169,39 @@ Result:
 ## Example
 my-element.ts
 ```typescript
-@customElement("my-element")
-class MyElement extends Polymer.Element {
 
-    @property({ notify: true })
+import CustomElement from '../node_modules/@leavittsoftware/polymer-ts/custom-element-decorator.js';
+import Property from '../node_modules/@leavittsoftware/polymer-ts/property-decorator.js';
+import Observe from '../node_modules/@leavittsoftware/polymer-ts/observe-decorator.js';
+import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+
+@CustomElement("my-element")
+export class MyElement extends PolymerElement {
+      
+    @Property({ notify: true })
     personId: number = 44;
 
-    @property()
+    @Property()
     size: number = 60;
 
-    @observe('size')
+    @Observe('size')
     _sizeChanged(size) {
         console.log("size changed to " + size);
     }
     
-    @computed('src')
+    @Computed('src')
     _computePictureSrc(personId: number, size: number) {
         var baseUrl = this.isDev() ? "https://dev.example.com/" : "https://example.com/";
         return `${baseUrl}Picture(${personId})/Default.Picture(size=${size})`;
     }
+    
+    static get template() {
+        return `<style>
+                 :host {
+                    display: block;
+                }            
+          </style>
+          <img src="{{src}}" style="height:[[size]]"></img>`;
+    }
 }
-```
-my-element.html
-```html
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymer2-ts/polymer2-ts.html">
-
-<dom-module id="my-element">
-    <template>
-        <style>
-             :host {
-                display: block;
-            }            
-        </style>
-        <img src="{{src}}" style="height:[[size]]"></img>
-    </template>
-    <script type="text/javascript" src="my-element.js"></script>
-</dom-module>
-
 ```
