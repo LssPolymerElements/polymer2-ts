@@ -5,6 +5,7 @@ import GestureListen from '../gesture-listen-decorator.js';
 import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
 import { GestureEventListeners as GestureEventListeners } from '../node_modules/@polymer/polymer/lib/mixins/gesture-event-listeners.js';
 
+
 @CustomElement('gesture-event-demo')
 export class GestureEventDemo extends GestureEventListeners(PolymerElement) {
 
