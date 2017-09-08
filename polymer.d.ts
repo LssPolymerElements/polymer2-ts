@@ -53,7 +53,7 @@ declare var Polymer: {
 
     LazyImportsMixin: Mixin<LazyImportsMixin>;
 	
-	RenderStatus: RenderStatus; 
+    RenderStatus: RenderStatus; 
 
     IronMeta: any;
 
