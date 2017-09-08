@@ -51,7 +51,7 @@ declare var Polymer: {
 
     Gestures: PolymerGestures;
 
-    RenderStatus: RenderStatus;
+    LazyImportsMixin: Mixin<LazyImportsMixin>;
 
     IronMeta: any;
 
@@ -107,9 +107,13 @@ declare class PolymerGestures {
     addListener(element: any, eventName: string, listener: (event: Event) => void): void;
 }
 
-declare class RenderStatus {
-    afterNextRender(context: any, callback: () => void, args?: Array<any>): void;
-    beforeNextRender(context: any, callback: () => void, args?: Array<any>): void;
+declare class LazyImportsMixin {
+    importLazyGroup(groupName: string): Promise<importLazyGroupResult>;
+}
+
+interface importLazyGroupResult {
+    failed: Array<string>
+    loaded: Array<string>
 }
 
 declare class PolymerBatchedEffects extends PolymerPropertyEffects {
