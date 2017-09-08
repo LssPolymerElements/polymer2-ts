@@ -51,6 +51,8 @@ declare var Polymer: {
 
     Gestures: PolymerGestures;
 
+    RenderStatus: RenderStatus;
+
     IronMeta: any;
 
     AppLayout: {
@@ -103,6 +105,11 @@ declare class PolymerPropertyEffects extends HTMLElement {
 
 declare class PolymerGestures {
     addListener(element: any, eventName: string, listener: (event: Event) => void): void;
+}
+
+declare class RenderStatus {
+    afterNextRender(context: any, callback: () => void, args?: Array<any>): void;
+    beforeNextRender(context: any, callback: () => void, args?: Array<any>): void;
 }
 
 declare class PolymerBatchedEffects extends PolymerPropertyEffects {
