@@ -16,13 +16,9 @@ function observe(targets: string | string[]) {
     };
 }
 
-function computed<T>(name: string) {
+function computed<T>(name: string, properties: Array<string> = []) {
     return (proto: any, propName: string): any => {
-        let funcText = proto[propName].toString();
-        let start = funcText.indexOf('(');
-        let end = funcText.indexOf(')');
-        let propertiesList = funcText.substring(start + 1, end);
-        let signature = getName(proto[propName]) + '(' + propertiesList + ')';
+        let signature = getName(proto[propName]) + '(' + properties + ')';
         proto.constructor.createComputedProperty(name, signature, true);
     };
 }
@@ -84,7 +80,7 @@ function getName(func: any) {
 }
 
 function addReadyHandler(proto: any, ) {
-    if (getName(proto.ready) === 'registerOnReady')
+    if (proto.__readyHandlerAdded)
         return;
 
     const ready = proto.ready;
@@ -112,6 +108,7 @@ function addReadyHandler(proto: any, ) {
             });
         }
     };
+    proto.__readyHandlerAdded = true;
 }
 
 function customElement(tagname: string) {
