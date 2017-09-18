@@ -28,12 +28,13 @@ function property(options) {
         }
         const type = Reflect.getMetadata('design:type', proto, propName);
         let propConfig = {};
-        if (type)
-            propConfig.type = true;
+        propConfig.type = type;
         if (notify)
             propConfig.notify = true;
         if (reflect)
             propConfig.reflectToAttribute = true;
+        if (readOnly)
+            propConfig.readOnly = true;
         proto.constructor.__polymer_ts_config[propName] = propConfig;
         if (!proto.constructor.hasOwnProperty('properties')) {
             Object.defineProperty(proto.constructor, 'properties', {
