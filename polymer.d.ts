@@ -27,7 +27,12 @@ type Mixin<M> =
 /**
  * The Polymer function and namespace.
  */
-declare var Polymer: {
+declare var Polymer: Polymer;
+
+/**
+ * The Polymer Interface
+ */
+declare interface Polymer {
 
     /**
      * The "Polymer function" for backwards compatibility with Polymer 1.x.
@@ -68,7 +73,7 @@ declare var Polymer: {
     dom: (elem: HTMLElement) => any;
 
 
-};
+}
 
 declare interface PolymerElementConstructor {
     new(): PolymerElement;
