@@ -105,7 +105,7 @@ declare class PolymerPropertyEffects extends HTMLElement {
     push(path: string, ...items: any[]): any;
     pop(path: string): any;
     shift(path: string): any;
-    unshift(path: string): number;
+    unshift(path: string, ...items: any[]): number;
     splice(path: string, start: number, removeCount?: number, ...items: Array<any>): Array<any>;
     notifyPath(path: string): void;
 }
