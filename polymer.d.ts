@@ -93,6 +93,7 @@ declare class PolymerElement extends PolymerMetaEffects {
     resolveCss(cssText: string, baseURI: string): string;
     pathFromUrl(url: string): string;
     rootPath: string;
+    root: HTMLElement;
 }
 
 declare class PolymerPropertyEffects extends HTMLElement {
