@@ -1,4 +1,13 @@
-# polymer2-ts
+# polymer2-ts -DEPRECATED 
+
+## 2-14-2018: With the [recent annoucement](https://www.polymer-project.org/blog/2018-01-25-polymer-2-4.html) of OFFICIAL support for [Polymer Decorators](https://github.com/Polymer/polymer-decorators) and [type definitions](https://github.com/Polymer/polymer/tree/master/types), we have decided to deprecate this project. Thanks to everyone for the contributions and support. 
+
+
+
+
+
+--------------------------------
+
 
 [![Build status](https://ci.appveyor.com/api/projects/status/ama6h2kudvjiwapy?svg=true)](https://ci.appveyor.com/project/aarondrabeck/polymer2-ts)
 
